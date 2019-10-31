@@ -13,5 +13,6 @@ public class Order {
 	private String state;
 	private String zip;
 	private String ccNumber;
+	private String ccExpiration;
 	private String ccCVV;
 }
