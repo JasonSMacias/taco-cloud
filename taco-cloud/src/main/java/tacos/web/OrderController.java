@@ -21,7 +21,10 @@ public class OrderController {
 	}
 	
 	@PostMapping
-	public String prosessOrder(Order order ) {
+	public String prosessOrder(@Valid Order order, Errors errors) {
+		if(errors.hasErrors()) {
+			return "orderForm";
+		}
 		log.info("Order submitted: " + order);
 		return "redirect:/";
 	}

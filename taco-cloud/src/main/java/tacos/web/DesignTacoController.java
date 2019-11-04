@@ -45,7 +45,10 @@ public class DesignTacoController {
 	}
 	
 	@PostMapping
-	public String processDesign(Taco design) {
+	public String processDesign(@Valid Taco design, Errors errors) {
+		if(errors.hasErrors()) {
+			return "design";
+		}
 		// TODO Save the taco design here
 		log.info("Processing design: " + design);
 		return "redirect:/orders/current";
