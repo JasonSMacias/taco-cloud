@@ -26,7 +26,7 @@ public class JdbcIngredientRepository implements IngredientRepository {
 	}
 
 	@Override
-	public Ingredient findOne(String id) {
+	public Ingredient findById(String id) {
 		// This is an example of an explicit RowMapper reference (no lambdas or use of mapRowToIngredient)
 		return jdbc.queryForObject("select id, name, type from Ingredient where id=?", 
 				new RowMapper<Ingredient>() {

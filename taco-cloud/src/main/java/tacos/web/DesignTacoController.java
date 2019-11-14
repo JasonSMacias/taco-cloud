@@ -1,9 +1,10 @@
 package tacos.web;
 import java.util.ArrayList;
-import java.util.Arrays;
+//import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +17,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import lombok.extern.slf4j.Slf4j;
+//import lombok.extern.slf4j.Slf4j;
 import tacos.Taco;
 import tacos.Ingredient;
 import tacos.Ingredient.Type;
 import tacos.Order;
-import tacos.data.*;
+import tacos.data.TacoRepository;
+import tacos.data.IngredientRepository;
 
-@Slf4j
+//@Slf4j
 @Controller
 @RequestMapping("/design")
 @SessionAttributes("order")
@@ -58,16 +60,19 @@ public class DesignTacoController {
 			model.addAttribute(type.toString().toLowerCase(),
 					filterByType(ingredients, type));
 		}
-		 model.addAttribute("design", new Taco());
+//		 model.addAttribute("design", new Taco());
 		return "design";
 	}
 	
 	@PostMapping
-	public String processDesign(@Valid Taco design, Errors errors, @ModelAttribute Order order) {
+	public String processDesign(@Valid Taco taco, Errors errors, @ModelAttribute Order order) {
+		System.out.println("hit");
 		if(errors.hasErrors()) {
+			System.out.println(taco);
+			System.out.println(errors);
 			return "design";
 		}
-		Taco saved = designRepo.save(design);
+		Taco saved = designRepo.save(taco);
 		order.addDesign(saved);
 		return "redirect:/orders/current";
 	}
