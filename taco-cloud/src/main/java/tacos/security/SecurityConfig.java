@@ -29,12 +29,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return new StandardPasswordEncoder("53cr3t");
 	}
 
-	// which roles/authstatus can access which endpoint
+	// which roles/authstatus can access which endpoint, and specify login page
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 			.antMatchers("/design", "/orders").hasRole("ROLE_USER")
-			.antMatchers("/", "/**").permitAll();
+			.antMatchers("/", "/**").permitAll()
+			// the following and() signifies bridging of completed prior auth config with further
+			// http config.  In general, and is used between config sections
+			.and().formLogin().loginPage("/login");
 	}
 	
 	@Override
