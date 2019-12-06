@@ -37,7 +37,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/", "/**").permitAll()
 			// the following and() signifies bridging of completed prior auth config with further
 			// http config.  In general, and is used between config sections
-			.and().formLogin().loginPage("/login");
+			.and().formLogin().loginPage("/login")
+			.and().logout().logoutSuccessUrl("/");
 	}
 	
 	@Override
