@@ -33,12 +33,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-			.antMatchers("/design", "/orders").hasRole("ROLE_USER")
+			.antMatchers("/design", "/orders").hasRole("USER")
 			.antMatchers("/", "/**").permitAll()
 			// the following and() signifies bridging of completed prior auth config with further
 			// http config.  In general, and is used between config sections
 			.and().formLogin().loginPage("/login")
-			.and().logout().logoutSuccessUrl("/");
+			.and().logout().logoutSuccessUrl("/")
+			// h2 console not secured for dev
+			.and().csrf().ignoringAntMatchers("/h2-console/**")
+			.and().headers().frameOptions().sameOrigin();
 	}
 	
 	@Override
