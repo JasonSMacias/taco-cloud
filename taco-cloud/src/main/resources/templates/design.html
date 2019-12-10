@@ -11,14 +11,14 @@
 
 <body>
   <h1>Design Your Taco</h1>
+  <h2>Feelin' hungry, <span th:text ="${user.fullname}">NAME</span>?</h2>
   
   <img th:src="@{/images/TacoCloud.png}" />
-  
   <form method="POST" th:action="@{/logout}">
   	<input type="submit" value="Logout" />
   </form>
   
-  <form method="POST" th:object="${taco}">
+  <form method="POST" th:object="${taco}" th:action="@{/design}" id="tacoForm">
     <span class="validationError" th:if="@{#fields.hasErrors('ingredients')}" th:errors="*{ingredients}">Ingredient Error</span>
 
       <div class="grid">
