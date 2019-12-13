@@ -1,0 +1,7 @@
+spring:
+  thymeleaf:
+    cache: false
+    
+taco:
+  orders:
+    pageSize: 10
